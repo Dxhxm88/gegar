@@ -4,6 +4,27 @@ A cross-platform CLI mouse jiggler that runs in the background. Keeps your compu
 
 ## Installation
 
+### Option 1: Download binary (no Python needed)
+
+Download the latest binary for your platform from the [Releases](https://github.com/Dxhxm88/gegar/releases) page:
+
+| Platform | File |
+|----------|------|
+| macOS (Apple Silicon) | `gegar-macos-arm64` |
+| Linux (x86_64) | `gegar-linux-x86_64` |
+| Windows (x86_64) | `gegar-windows-x86_64.exe` |
+
+Then make it executable (macOS/Linux):
+
+```bash
+chmod +x gegar-macos-arm64
+mv gegar-macos-arm64 /usr/local/bin/gegar
+```
+
+Windows: just put the `.exe` somewhere on your PATH.
+
+### Option 2: Install from source (requires Python)
+
 ```bash
 pip install -e .
 ```
