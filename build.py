@@ -61,9 +61,9 @@ def build():
 
     if result.returncode == 0:
         ext = ".exe" if system == "windows" else ""
-        print(f"\n✅ Binary built: dist/{output_name}{ext}")
+        print(f"\nDone! Binary built: dist/{output_name}{ext}")
     else:
-        print("\n❌ Build failed")
+        print("\nBuild failed")
         sys.exit(1)
 
 
