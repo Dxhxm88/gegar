@@ -10,6 +10,12 @@ def build():
     system = platform.system().lower()
     machine = platform.machine().lower()
 
+    # Normalize architecture names
+    if machine in ("amd64", "x86_64"):
+        machine = "x86_64"
+    elif machine in ("arm64", "aarch64"):
+        machine = "arm64"
+
     # Binary name (add .exe on Windows)
     name = "gegar"
     if system == "windows":
