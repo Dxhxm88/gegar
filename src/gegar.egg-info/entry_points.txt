@@ -1,0 +1,2 @@
+[console_scripts]
+gegar = gegar.cli:main
