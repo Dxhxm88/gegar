@@ -1,4 +1,0 @@
-pynput>=1.7.6
-
-[:python_version < "3.11"]
-tomli>=2.0.1
