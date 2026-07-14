@@ -32,7 +32,7 @@ def start_daemon() -> str:
     """Start the jiggler as a background process."""
     running, pid = is_running()
     if running:
-        return f"gegar is already running (PID: {pid})"
+        return f"⚡ gegar is already running (PID: {pid})"
 
     # Spawn a detached subprocess running the daemon entry point
     python = sys.executable
@@ -63,14 +63,21 @@ def start_daemon() -> str:
     pid_path.parent.mkdir(parents=True, exist_ok=True)
     pid_path.write_text(str(proc.pid))
 
-    return f"gegar started (PID: {proc.pid})"
+    config = load_config()
+    return (
+        f"✅ gegar started\n"
+        f"   PID:      {proc.pid}\n"
+        f"   Pattern:  {config['pattern']}\n"
+        f"   Interval: {config['interval']}s\n"
+        f"   Distance: {config['distance']}px"
+    )
 
 
 def stop_daemon() -> str:
     """Stop the running jiggler daemon."""
     running, pid = is_running()
     if not running:
-        return "gegar is not running"
+        return "💤 gegar is not running"
 
     try:
         if sys.platform == "win32":
@@ -89,10 +96,10 @@ def stop_daemon() -> str:
 
         # Clean up PID file
         get_pid_path().unlink(missing_ok=True)
-        return f"gegar stopped (PID: {pid})"
+        return f"🛑 gegar stopped (PID: {pid})"
     except (OSError, ProcessLookupError):
         get_pid_path().unlink(missing_ok=True)
-        return f"gegar stopped (PID: {pid})"
+        return f"🛑 gegar stopped (PID: {pid})"
 
 
 def get_status() -> str:
@@ -101,13 +108,15 @@ def get_status() -> str:
     if running:
         config = load_config()
         return (
-            f"gegar is running (PID: {pid})\n"
-            f"  interval: {config['interval']}s\n"
-            f"  distance: {config['distance']}px\n"
-            f"  pattern:  {config['pattern']}"
+            f"🟢 gegar is running\n"
+            f"   PID:      {pid}\n"
+            f"   Pattern:  {config['pattern']}\n"
+            f"   Interval: {config['interval']}s\n"
+            f"   Distance: {config['distance']}px\n"
+            f"   Duration: {'forever' if config['duration'] == 0 else str(config['duration']) + 's'}"
         )
     else:
-        return "gegar is not running"
+        return "🔴 gegar is not running"
 
 
 def daemon_main():

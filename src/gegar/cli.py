@@ -29,29 +29,33 @@ def cmd_config(args):
     config_path = init_config()
 
     if args.config_action == "path":
-        print(config_path)
+        print(f"📂 {config_path}")
     elif args.config_action == "show":
         config = load_config()
-        print(f"Config file: {config_path}")
-        print(f"  interval = {config['interval']}  # seconds")
-        print(f"  distance = {config['distance']}  # pixels")
-        print(f"  pattern  = \"{config['pattern']}\"")
-        print(f"  duration = {config['duration']}  # seconds (0 = forever)")
+        print(f"⚙️  Configuration")
+        print(f"   ─────────────────────────────")
+        print(f"   File:     {config_path}")
+        print(f"   Interval: {config['interval']}s")
+        print(f"   Distance: {config['distance']}px")
+        print(f"   Pattern:  {config['pattern']}")
+        print(f"   Duration: {'forever' if config['duration'] == 0 else str(config['duration']) + 's'}")
     elif args.config_action == "edit":
         import subprocess
         editor = _get_editor()
         subprocess.run([editor, str(config_path)])
     elif args.config_action == "reset":
         config_path.write_text(CONFIG_TEMPLATE)
-        print(f"Config reset to defaults: {config_path}")
+        print(f"🔄 Config reset to defaults")
+        print(f"   File: {config_path}")
     else:
-        # Default: show config
         config = load_config()
-        print(f"Config file: {config_path}")
-        print(f"  interval = {config['interval']}  # seconds")
-        print(f"  distance = {config['distance']}  # pixels")
-        print(f"  pattern  = \"{config['pattern']}\"")
-        print(f"  duration = {config['duration']}  # seconds (0 = forever)")
+        print(f"⚙️  Configuration")
+        print(f"   ─────────────────────────────")
+        print(f"   File:     {config_path}")
+        print(f"   Interval: {config['interval']}s")
+        print(f"   Distance: {config['distance']}px")
+        print(f"   Pattern:  {config['pattern']}")
+        print(f"   Duration: {'forever' if config['duration'] == 0 else str(config['duration']) + 's'}")
 
 
 def _get_editor() -> str:
